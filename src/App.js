@@ -73,6 +73,19 @@ function App() {
     )
   }
 
+  let permalinkRender
+  if (word) {
+    permalinkRender = (
+      <a 
+        href={`${window.location.origin}?pkg=${word}`}
+        style={{ textDecoration: 'none', marginLeft: 12 }}
+        target='_blank' rel="noopener"
+      >
+        🔗
+      </a>
+    )
+  }
+
   return (
     <div className="App">
       <h1>JS Code Search</h1>
@@ -85,13 +98,7 @@ function App() {
           style={{padding: '8px 12px', width: 250, fontSize: 16}}
           placeholder='Enter name of package here'
         />
-        <a 
-          href={`${window.location.origin}?pkg=${word}`}
-          style={{ textDecoration: 'none', marginLeft: 12 }}
-          target='_blank' rel="noopener"
-        >
-          🔗
-        </a>
+        {permalinkRender}
       </div>
       {linksRender}
     </div>

@@ -2,10 +2,14 @@ import { useState, useRef, useEffect } from 'react'
 import './App.css';
 
 const initial = getQueryParams('pkg', window.location.href)
+const exclude = window.localStorage.getItem('excludeUser') || ''
 
 function App() {
   const inputRef = useRef()
+  const [ githubUser, setGithubUser ] = useState(exclude)
   const [ word, setWord ] = useState(initial)
+
+  const excludeSpecificUser = (githubUser) ? `+-user%3A${githubUser}` : ''
 
   useEffect(() => {
     if (inputRef?.current) {
@@ -17,9 +21,9 @@ function App() {
 
   const cleanWord = formatWord(word)
   const codeSandbox = `https://codesandbox.io/search?refinementList%5Btemplate%5D=&refinementList%5Bnpm_dependencies.dependency%5D%5B0%5D=${word}&refinementList%5Btags%5D=&page=1&configure%5BhitsPerPage%5D=12`
-  const githubPkg = `https://github.com/search?o=desc&q=filename%3Apackage.json+${cleanWord}&s=indexed&type=Code`
-  const githubJScode = `https://github.com/search${formatRequire(word)}`
-  const githubJSImport = `https://github.com/search${formatImport(cleanWord)}`
+  const githubPkg = `https://github.com/search?o=desc&q=filename%3Apackage.json+${cleanWord}${excludeSpecificUser}&s=indexed&type=Code`
+  const githubJScode = `https://github.com/search${formatRequire(word, excludeSpecificUser)}`
+  const githubJSImport = `https://github.com/search${formatImport(cleanWord, excludeSpecificUser)}`
 
   const sourceGraphRequire = `https://sourcegraph.com/search?q=require%5C%28%28%27%7C"%29${word}%28%27%7C"%29%5C%29+%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
   const sourceGraphImport = `https://sourcegraph.com/search?q=%28import.*%28%27%7C"%29${word}%28%27%7C"%29%29%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
@@ -103,18 +107,18 @@ function formatWord(word) {
   return word
 }
 
-function formatRequire(word) {
+function formatRequire(word, excludeSpecificUser) {
   // Github doesnt search for anything prefixed with @ for some reason
   if (word.startsWith('@')) {
     const newWord = word.split('/')[1]
-    return `?l=JavaScript&o=desc&s=indexed&q=require+${newWord}+language%3AJavaScript+language%3ATypeScript&type=Code`
+    return `?l=JavaScript&o=desc&s=indexed&q=require+${newWord}+language%3AJavaScript+language%3ATypeScript${excludeSpecificUser}&type=Code`
   }
-  return `?l=JavaScript&o=desc&s=indexed&q=require+${word}+language%3AJavaScript+language%3ATypeScript&type=Code`
+  return `?l=JavaScript&o=desc&s=indexed&q=require+${word}+language%3AJavaScript+language%3ATypeScript${excludeSpecificUser}&type=Code`
 }
 
-function formatImport(word) {
+function formatImport(word, excludeSpecificUser) {
   // from word
-  return `?l=JavaScript&o=desc&s=indexed&q=from%20"${word}"+language%3AJavaScript+language%3ATypeScript&type=Code`
+  return `?l=JavaScript&o=desc&s=indexed&q=from%20"${word}"+language%3AJavaScript+language%3ATypeScript${excludeSpecificUser}&type=Code`
 }
 
 function getQueryParams(params, url) {

@@ -1,10 +1,11 @@
 import { useState, useRef, useEffect } from 'react'
 import './App.css';
 
+const initial = getQueryParams('pkg', window.location.href)
+
 function App() {
   const inputRef = useRef()
-  const [ word, setWord ] = useState('')
-
+  const [ word, setWord ] = useState(initial)
 
   useEffect(() => {
     if (inputRef?.current) {
@@ -13,7 +14,6 @@ function App() {
       }, 500)
     }
   }, [])
-
 
   const cleanWord = formatWord(word)
   const codeSandbox = `https://codesandbox.io/search?refinementList%5Btemplate%5D=&refinementList%5Bnpm_dependencies.dependency%5D%5B0%5D=${word}&refinementList%5Btags%5D=&page=1&configure%5BhitsPerPage%5D=12`
@@ -64,7 +64,6 @@ function App() {
           - <a href={`https://www.google.com/search?q=${word}+-npmjs.com+-amazon.com+-amazonaws.cn&biw=2844&bih=1387&tbs=qdr:y`} target='_blank' rel="noopener">
             Google results for <strong>{word}</strong> past year
           </a>
-          
         </p>
       </div>
     )
@@ -74,13 +73,22 @@ function App() {
     <div className="App">
       <h1>JS Code Search</h1>
       <p>Search for usage examples of any npm package!</p>
-      <input 
-        ref={inputRef}
-        onChange={(e) => setWord(e.target.value)}
-        value={word}
-        style={{padding: '8px 12px', width: 250, fontSize: 16}}
-        placeholder='Enter name of package here'
-      />
+      <div>
+        <input 
+          ref={inputRef}
+          onChange={(e) => setWord(e.target.value)}
+          value={word}
+          style={{padding: '8px 12px', width: 250, fontSize: 16}}
+          placeholder='Enter name of package here'
+        />
+        <a 
+          href={`${window.location.origin}?pkg=${word}`}
+          style={{ textDecoration: 'none', marginLeft: 12 }}
+          target='_blank' rel="noopener"
+        >
+          🔗
+        </a>
+      </div>
       {linksRender}
     </div>
   )
@@ -108,5 +116,14 @@ function formatImport(word) {
   // from word
   return `?l=JavaScript&o=desc&s=indexed&q=from%20"${word}"+language%3AJavaScript+language%3ATypeScript&type=Code`
 }
+
+function getQueryParams(params, url) {
+  let href = url;
+  //this expression is to get the query strings
+  let reg = new RegExp( '[?&]' + params + '=([^&#]*)', 'i' );
+  let queryString = reg.exec(href);
+  return queryString ? queryString[1] : '';
+}
+
 
 export default App;

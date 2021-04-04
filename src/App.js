@@ -27,41 +27,41 @@ function App() {
   let linksRender
   if(word) {
     linksRender = (
-      <div>
-        <p>Searching for <strong>{word}</strong></p>
+      <div style={{ textAlign: 'left' }}>
+        <p>Searching for package "<strong>{word}</strong>"</p>
+      
         <p>
-          <a href={codeSandbox} target='_blank' rel="noopener">
-            Code sandbox examples of {word}
-          </a>
-        </p>
-    
-        <p>
-          <a href={githubPkg} target='_blank' rel="noopener">
+          - <a href={githubPkg} target='_blank' rel="noopener">
             Github projects package.json using {word}
           </a>
         </p>
         <p>
-          <a href={githubJSImport} target='_blank' rel="noopener">
-            Github projects via <strong>import {word}</strong>
+          - <a href={githubJSImport} target='_blank' rel="noopener">
+           Github projects Javascript <strong>import {word}</strong>
           </a>
         </p>
         <p>
-          <a href={githubJScode} target='_blank' rel="noopener">
-            Github projects via <strong>require("{word}") </strong>
+          - <a href={githubJScode} target='_blank' rel="noopener">
+            Github projects Javascript <strong>require("{word}") </strong>
           </a>
         </p>
         <p>
-          <a href={sourceGraphRequire} target='_blank' rel="noopener">
+          - <a href={codeSandbox} target='_blank' rel="noopener">
+            CodeSandbox examples of {word}
+          </a>
+        </p>
+        <p>
+          - <a href={sourceGraphRequire} target='_blank' rel="noopener">
             SourceGraph <strong>require("{word}") </strong>
           </a>
         </p>
         <p>
-          <a href={sourceGraphImport} target='_blank' rel="noopener">
+          - <a href={sourceGraphImport} target='_blank' rel="noopener">
             SourceGraph <strong>import {word}</strong>
           </a>
         </p>
         <p>
-          <a href={`https://www.google.com/search?q=${word}+-npmjs.com+-amazon.com+-amazonaws.cn&biw=2844&bih=1387&tbs=qdr:y`} target='_blank' rel="noopener">
+          - <a href={`https://www.google.com/search?q=${word}+-npmjs.com+-amazon.com+-amazonaws.cn&biw=2844&bih=1387&tbs=qdr:y`} target='_blank' rel="noopener">
             Google results for <strong>{word}</strong> past year
           </a>
           

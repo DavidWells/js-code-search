@@ -37,7 +37,8 @@ function App() {
       </p>
       <div>
         <h3>Other tools</h3>
-        <a href='https://npmarket.netlify.app'>https://npmarket.netlify.app</a>
+        <a href={`https://npmarket.netlify.app/?q=${word}&from=0`}>https://npmarket.netlify.app</a>
+        <a href={`https://namae.dev/s/${word}`}>https://namae.dev/s/{word}</a>
       </div>
     </div>
   )

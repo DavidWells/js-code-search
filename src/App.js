@@ -4,6 +4,14 @@ import './App.css';
 const initial = getQueryParams('pkg', window.location.href)
 const exclude = window.localStorage.getItem('excludeUser') || ''
 
+function Link({ href, children }) {
+  return (
+    <a href={href} target='_blank' rel="noopener">
+      {children}
+    </a>
+  )
+}
+
 function App() {
   const inputRef = useRef()
   const [ githubUser, setGithubUser ] = useState(exclude)
@@ -35,45 +43,53 @@ function App() {
         <p>Searching for package "<strong>{word}</strong>"</p>
       
         <p>
-          - <a href={githubPkg} target='_blank' rel="noopener">
-            Github projects package.json using {word}
-          </a>
+          - <Link href={githubPkg}> 
+              Github projects package.json using {word}
+            </Link>
         </p>
         <p>
-          - <a href={githubJSImport} target='_blank' rel="noopener">
+          - <Link href={githubJSImport}>
            Github projects Javascript <strong>import {word}</strong>
-          </a>
+            </Link>
         </p>
         <p>
-          - <a href={githubJScode} target='_blank' rel="noopener">
+          - <Link href={githubJScode}>
             Github projects Javascript <strong>require("{word}") </strong>
-          </a>
+            </Link>
         </p>
         <p>
-          - <a href={codeSandbox} target='_blank' rel="noopener">
+          - <Link href={codeSandbox}>
             CodeSandbox examples of {word}
-          </a>
+            </Link>
         </p>
         <p>
-          - <a href={sourceGraphRequire} target='_blank' rel="noopener">
+          - <Link href={sourceGraphRequire}>
             SourceGraph <strong>require("{word}") </strong>
-          </a>
+            </Link>
         </p>
         <p>
-          - <a href={sourceGraphImport} target='_blank' rel="noopener">
+          - <Link href={sourceGraphImport}>
             SourceGraph <strong>import {word}</strong>
-          </a>
+            </Link>
         </p>
         <p>
-          - <a href={`https://www.google.com/search?q=${word}+-npmjs.com+-amazon.com+-amazonaws.cn&biw=2844&bih=1387&tbs=qdr:y`} target='_blank' rel="noopener">
+          - <Link href={`https://www.google.com/search?q=${word}+-npmjs.com+-amazon.com+-amazonaws.cn&biw=2844&bih=1387&tbs=qdr:y`}>
             Google results for <strong>{word}</strong> past year
-          </a>
+            </Link>
         </p>
 
          <div>
            <h3>Other tools</h3>
-           <a href={`https://npmarket.netlify.app/?q=${word}&from=0`}>https://npmarket.netlify.app</a>
-           <a href={`https://namae.dev/s/${word}`}>https://namae.dev/s/{word}</a>
+           <div>
+             - <Link href={`https://npmarket.netlify.app/?q=${word}&from=0`}>
+                https://npmarket.netlify.app search "{word}"
+               </Link>
+           </div>
+           <div>
+             - <Link href={`https://namae.dev/s/${word}`}>
+                https://namae.dev/s/{word}
+               </Link>
+           </div>
          </div>
       </div>
     )
@@ -88,7 +104,7 @@ function App() {
         target='_blank' rel="noopener"
       >
         🔗
-      </a>
+      </Link>
     )
   }
 

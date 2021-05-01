@@ -104,7 +104,7 @@ function App() {
         target='_blank' rel="noopener"
       >
         🔗
-      </Link>
+      </a>
     )
   }
 

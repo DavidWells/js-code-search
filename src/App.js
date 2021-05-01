@@ -35,6 +35,10 @@ function App() {
           On sourceGraph
         </a>
       </p>
+      <div>
+        <h3>Other tools</h3>
+        <a href='https://npmarket.netlify.app'>https://npmarket.netlify.app</a>
+      </div>
     </div>
   )
 }

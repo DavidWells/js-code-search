@@ -80,16 +80,21 @@ function App() {
 
          <div>
            <h3>Other tools</h3>
-           <div>
+           <p>
              - <Link href={`https://npmarket.netlify.app/?q=${word}&from=0`}>
                 search npmarket "{word}"
                </Link>
-           </div>
-           <div>
+           </p>
+           <p>
              - <Link href={`https://namae.dev/s/${word}`}>
                 Check name availability https://namae.dev/s/{word}
                </Link>
-           </div>
+           </p>
+           <p>
+             - <Link href={`https://instantdomainsearch.com/search/domains?q=${word}`}>
+                Domain search for {word}
+               </Link>
+           </p>
          </div>
       </div>
     )

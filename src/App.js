@@ -85,6 +85,12 @@ function App() {
                 search npmarket "{word}"
                </Link>
            </p>
+            <p>
+             - <Link href={`https://repo-review.herokuapp.com/`}>
+                search repo-review
+               </Link>
+           </p>
+           https://repo-review.herokuapp.com/cognito?sort=stars&order=false
            <p>
              - <Link href={`https://namae.dev/s/${word}`}>
                 Check name availability https://namae.dev/s/{word}

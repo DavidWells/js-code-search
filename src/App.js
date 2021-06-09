@@ -90,7 +90,6 @@ function App() {
                 search repo-review
                </Link>
            </p>
-           https://repo-review.herokuapp.com/cognito?sort=stars&order=false
            <p>
              - <Link href={`https://namae.dev/s/${word}`}>
                 Check name availability https://namae.dev/s/{word}

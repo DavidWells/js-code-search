@@ -30,8 +30,10 @@ function App() {
   const cleanWord = formatWord(word)
   const codeSandbox = `https://codesandbox.io/search?refinementList%5Btemplate%5D=&refinementList%5Bnpm_dependencies.dependency%5D%5B0%5D=${word}&refinementList%5Btags%5D=&page=1&configure%5BhitsPerPage%5D=12`
   const githubPkg = `https://github.com/search?o=desc&q=filename%3Apackage.json+${cleanWord}${excludeSpecificUser}&s=indexed&type=Code`
-  const githubJScode = `https://github.com/search${formatRequire(word, excludeSpecificUser)}`
+  const githubJSRequire = `https://github.com/search${formatRequire(word, excludeSpecificUser)}`
   const githubJSImport = `https://github.com/search${formatImport(cleanWord, excludeSpecificUser)}`
+  const githubJSCode = `https://github.com/search?l=JavaScript&o=desc&s=indexed&type=Code&q=${word}`
+  const githubTSCode = `https://github.com/search?l=TypeScript&o=desc&s=indexed&type=Code&q=${word}`
 
   const sourceGraphRequire = `https://sourcegraph.com/search?q=require%5C%28%28%27%7C"%29${word}%28%27%7C"%29%5C%29+%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
   const sourceGraphImport = `https://sourcegraph.com/search?q=%28import.*%28%27%7C"%29${word}%28%27%7C"%29%29%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
@@ -53,8 +55,18 @@ function App() {
             </Link>
         </p>
         <p>
-          - <Link href={githubJScode}>
+          - <Link href={githubJSRequire}>
             Github projects Javascript <strong>require("{word}") </strong>
+            </Link>
+        </p>
+        <p>
+          - <Link href={githubJSCode}>
+            Github Javascript Code search for <strong>"{word}"</strong>
+            </Link>
+        </p>
+        <p>
+          - <Link href={githubTSCode}>
+            Github TypeScript Code search for <strong>"{word}"</strong>
             </Link>
         </p>
         <p>

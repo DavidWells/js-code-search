@@ -37,6 +37,7 @@ function App() {
 
   const sourceGraphRequire = `https://sourcegraph.com/search?q=require%5C%28%28%27%7C"%29${word}%28%27%7C"%29%5C%29+%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
   const sourceGraphImport = `https://sourcegraph.com/search?q=%28import.*%28%27%7C"%29${word}%28%27%7C"%29%29%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
+  const sourceGraphPkg = `https://sourcegraph.com/search?q=context:global+%28${word}28lang:JSON%29&patternType=regexp`
 
   let linksRender
   if(word) {
@@ -72,6 +73,11 @@ function App() {
         <p>
           - <Link href={codeSandbox}>
             CodeSandbox examples of {word}
+            </Link>
+        </p>
+        <p>
+          - <Link href={sourceGraphPkg}>
+            SourceGraph package.json for <strong>{word}</strong>
             </Link>
         </p>
         <p>

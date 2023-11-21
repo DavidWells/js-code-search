@@ -29,11 +29,10 @@ function App() {
 
   const cleanWord = formatWord(word)
   const codeSandbox = `https://codesandbox.io/search?refinementList%5Btemplate%5D=&refinementList%5Bnpm_dependencies.dependency%5D%5B0%5D=${word}&refinementList%5Btags%5D=&page=1&configure%5BhitsPerPage%5D=12`
-  const githubPkg = `https://github.com/search?o=desc&q=filename%3Apackage.json+${cleanWord}${excludeSpecificUser}&s=indexed&type=Code`
+  const githubPkg = `https://github.com/search?q=path%3Apackage.json+%2F%5C"${word}%5C"%5Cs*%3A%5Cs*%5C"%5Cd%2B%5C.%5Cd%2B%5C.%5Cd%2B%5C"%2F+NOT+removeWord&s=indexed&type=code`
   const githubJSRequire = `https://github.com/search${formatRequire(word, excludeSpecificUser)}`
   const githubJSImport = `https://github.com/search${formatImport(cleanWord, excludeSpecificUser)}`
-  const githubJSCode = `https://github.com/search?l=JavaScript&o=desc&s=indexed&type=Code&q=${word}`
-  const githubTSCode = `https://github.com/search?l=TypeScript&o=desc&s=indexed&type=Code&q=${word}`
+  const githubJSCode = `https://github.com/search?type=code&q=${word}+%28language%3AJavaScript+OR+language%3ATypeScript%29`
 
   const sourceGraphRequire = `https://sourcegraph.com/search?q=require%5C%28%28%27%7C"%29${word}%28%27%7C"%29%5C%29+%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
   const sourceGraphImport = `https://sourcegraph.com/search?q=%28import.*%28%27%7C"%29${word}%28%27%7C"%29%29%28lang:javascript+OR+lang:typescript%29&patternType=regexp`
@@ -62,12 +61,7 @@ function App() {
         </p>
         <p>
           - <Link href={githubJSCode}>
-            Github Javascript Code search for <strong>"{word}"</strong>
-            </Link>
-        </p>
-        <p>
-          - <Link href={githubTSCode}>
-            Github TypeScript Code search for <strong>"{word}"</strong>
+            Github Javascript + TS Code search for <strong>"{word}"</strong>
             </Link>
         </p>
         <p>
@@ -168,14 +162,14 @@ function formatRequire(word, excludeSpecificUser) {
   // Github doesnt search for anything prefixed with @ for some reason
   if (word.startsWith('@')) {
     const newWord = word.split('/')[1]
-    return `?l=JavaScript&o=desc&s=indexed&q=require+${newWord}+language%3AJavaScript+language%3ATypeScript${excludeSpecificUser}&type=Code`
+    return `?o=desc&s=indexed&q=%28"require%28%5C"${newWord}%5C"%29"+OR+"require%28%27${newWord}%27%29"%29+%28path%3A**.js+OR+path%3A**.ts+OR+path%3A**.tsx+OR+path%3A**.esm%29+%28language%3AJavaScript+OR+language%3ATypeScript%29&type=code`
   }
-  return `?l=JavaScript&o=desc&s=indexed&q=require+${word}+language%3AJavaScript+language%3ATypeScript${excludeSpecificUser}&type=Code`
+  return `?o=desc&s=indexed&q=%28"require%28%5C"${word}%5C"%29"+OR+"require%28%27${word}%27%29"%29+%28path%3A**.js+OR+path%3A**.ts+OR+path%3A**.tsx+OR+path%3A**.esm%29+%28language%3AJavaScript+OR+language%3ATypeScript%29&type=code`
 }
 
 function formatImport(word, excludeSpecificUser) {
   // from word
-  return `?l=JavaScript&o=desc&s=indexed&q=from%20"${word}"+language%3AJavaScript+language%3ATypeScript${excludeSpecificUser}&type=Code`
+  return `?q=%28"from+%5C"${word}%5C""+OR+"from+%27${word}%27"%29+%28path%3A**.js+OR+path%3A**.ts+OR+path%3A**.tsx+OR+path%3A**.esm%29+%28language%3AJavaScript+OR+language%3ATypeScript%29&type=code`
 }
 
 function getQueryParams(params, url) {

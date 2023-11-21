@@ -43,7 +43,11 @@ function App() {
     linksRender = (
       <div style={{ textAlign: 'left' }}>
         <p>Searching for package "<strong>{word}</strong>"</p>
-      
+        <p>
+          - <Link href={githubJSCode}>
+            Github Javascript + Typescript Code search for <strong>"{word}"</strong>
+            </Link>
+        </p>
         <p>
           - <Link href={githubPkg}> 
               Github projects package.json using {word}
@@ -59,11 +63,7 @@ function App() {
             Github projects Javascript <strong>require("{word}") </strong>
             </Link>
         </p>
-        <p>
-          - <Link href={githubJSCode}>
-            Github Javascript + TS Code search for <strong>"{word}"</strong>
-            </Link>
-        </p>
+    
         <p>
           - <Link href={codeSandbox}>
             CodeSandbox examples of {word}
@@ -139,8 +139,8 @@ function App() {
           ref={inputRef}
           onChange={(e) => setWord(e.target.value)}
           value={word}
-          style={{padding: '8px 12px', width: 250, fontSize: 16}}
-          placeholder='Enter name of package here'
+          style={{padding: '8px 12px', width: 450, fontSize: 16}}
+          placeholder='Enter name of package or code symbol here'
         />
         {permalinkRender}
       </div>
